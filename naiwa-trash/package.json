@@ -1,6 +1,6 @@
 {
   "name": "naiwa-trash",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": true,
   "type": "module",
   "engines": {
@@ -12,7 +12,7 @@
     "tauri": "tauri",
     "app:dev": "tauri dev",
     "package:mac": "tauri build --bundles app,dmg",
-    "package:windows": "tauri build --bundles nsis",
+    "package:windows": "node scripts/package-windows.mjs",
     "check:syntax": "node scripts/check-syntax.mjs"
   },
   "dependencies": {

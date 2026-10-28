@@ -24,7 +24,7 @@ npm ci
 npm run app:dev
 ```
 
-macOS 打包：`npm run package:mac`；Windows 打包：`npm run package:windows`。
+macOS 打包：`npm run package:mac`；Windows 打包：`npm run package:windows`，自动准备 Rust x64 目标并生成 x64 安装包。
 
 Windows 需要 Visual Studio Build Tools 的 C++ 桌面开发组件和 Windows SDK。完整环境准备、安装包位置、源码结构见 [应用说明](naiwa-trash/README.md)。
 

@@ -64,21 +64,14 @@ npm run package:mac
 - Visual Studio 2022 Build Tools 的「使用 C++ 的桌面开发」及 Windows SDK；
 - WebView2 Runtime。NSIS 安装包会按 Tauri 默认策略安装缺少的运行时。
 
-把整个工程复制到 Windows 后，在工程目录执行：
+把整个工程复制到 Windows 后，在工程目录执行；这两个入口都会自动安装 Rust 的 x64 目标，然后生成 Intel / AMD 64 位 Windows 安装包，即使构建机是 ARM：
 
 ```powershell
 npm ci
 npm run package:windows
 ```
 
-也可双击 `scripts/build-windows.cmd`。安装包位于 `src-tauri/target/release/bundle/nsis/`，名称以 `-setup.exe` 结尾，默认仅安装到当前用户，无须管理员安装模式。
-
-如需指定 x64：
-
-```powershell
-rustup target add x86_64-pc-windows-msvc
-npm run tauri -- build --target x86_64-pc-windows-msvc --bundles nsis
-```
+也可双击 `scripts/build-windows.cmd`。安装包位于 `src-tauri/target/x86_64-pc-windows-msvc/release/bundle/nsis/`，名称以 `-setup.exe` 结尾，默认仅安装到当前用户，无须管理员安装模式。Visual Studio Build Tools 须包含 C++ x64/x86 构建工具及 Windows SDK。
 
 如需 ARM64，先安装 Visual Studio 的 C++ ARM64 构建组件：
 
