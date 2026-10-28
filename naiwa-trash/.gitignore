@@ -1,4 +1,29 @@
-node_modules/
-dist/
-src-tauri/target/
+# Dependencies and generated output
+/node_modules/
+/dist/
+/src-tauri/target/
+/src-tauri/gen/
+/releases/
+/coverage/
+*.log
+
+# Local credentials and signing material
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.p12
+*.pfx
+*.pem
+*.key
+*.mobileprovision
+
+# OS and editor temporary files
 .DS_Store
+._*
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+.idea/

@@ -6,11 +6,6 @@
       "item_limit": null,
       "size_limit_mib": null
     },
-    "reactions": {
-      "laugh_base": 0.12,
-      "laugh_per_extra_item": 0.045,
-      "laugh_cap": 0.85
-    },
     "pet_scale": 1
   },
   "runtime": {
@@ -19,46 +14,65 @@
     "history_limit": 40,
     "max_pending_drops": 32,
     "drop_ttl_seconds": 600,
-    "idle_delay_min_ms": 8000,
-    "idle_delay_max_ms": 16000,
     "toast_duration_ms": 4800,
-    "idle_actions": [
-      "blink",
-      "think",
-      "wave"
-    ],
-    "reaction_actions": [
-      "jump",
-      "think",
-      "surprised",
-      "wave",
-      "blink"
-    ],
     "shred": {
-      "max_visible_files": 8,
-      "columns": 6,
-      "rows": 3,
-      "paper_width": 46,
-      "paper_height": 58,
-      "duration_ms": 1050,
-      "stagger_ms": 160,
-      "spread": 28,
+      "max_visible_files": 6,
+      "columns": 7,
+      "paper_width_ratio": 0.21,
+      "paper_height_ratio": 1.35,
+      "approach_ms": 460,
+      "flight_ms": 840,
+      "tear_stagger_ms": 55,
+      "stagger_ms": 240,
+      "finish_ms": 220,
+      "ribbon_segments": 12,
+      "curl": 1.35,
+      "flutter_cycles": 1.4,
+      "text_lines": 3,
+      "sparkles": 3,
+      "entry_rotation": -0.3,
+      "feed_rotation": -0.08,
       "mouth": {
         "x": 0.378,
         "y": 0.225
       },
       "colors": [
-        "#fff8e3",
-        "#e5f0d5",
-        "#e6ecf4",
-        "#f4e2cc"
-      ]
+        "#fff8d9",
+        "#fff1b9",
+        "#f3f8d8"
+      ],
+      "paper_highlight": "#fffef4",
+      "fold": "#e4db92",
+      "ink": "#397633",
+      "outline": "#a7b071",
+      "shadow": "#43602424"
     },
     "pet": {
       "width": 240,
       "height": 260,
       "window_width": 336,
-      "window_height": 376
-    }
+      "window_height": 376,
+      "scale": 0.8
+    },
+    "cleanup_presets": {
+      "interval_hours": 24,
+      "item_limit": 100,
+      "size_limit_mib": 1024
+    },
+    "idle": {
+      "base_action": "blink",
+      "base_min_ms": 30000,
+      "base_max_ms": 90000,
+      "interludes": [
+        "jump",
+        "think",
+        "wave"
+      ]
+    },
+    "interaction": {
+      "drag_threshold_px": 6,
+      "click_action": "surprised"
+    },
+    "feed_reaction": "laugh"
   }
 }

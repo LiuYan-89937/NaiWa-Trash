@@ -18,13 +18,12 @@ pub struct RuntimeConfig {
     pub history_limit: usize,
     pub max_pending_drops: usize,
     pub drop_ttl_seconds: u64,
-    pub reaction_actions: Vec<String>,
+    pub feed_reaction: String,
 }
 
 #[derive(Clone, Serialize, Deserialize, PartialEq)]
 pub struct Settings {
     pub cleanup: CleanupPolicy,
-    pub reactions: ReactionPolicy,
     pub pet_scale: f64,
 }
 
@@ -36,21 +35,8 @@ pub struct CleanupPolicy {
     pub size_limit_mib: Option<u64>,
 }
 
-#[derive(Clone, Serialize, Deserialize, PartialEq)]
-pub struct ReactionPolicy {
-    pub laugh_base: f64,
-    pub laugh_per_extra_item: f64,
-    pub laugh_cap: f64,
-}
-
 impl Settings {
     pub fn validate(&self) -> Result<(), String> {
-        let probabilities = [self.reactions.laugh_base, self.reactions.laugh_per_extra_item,
-            self.reactions.laugh_cap];
-        if probabilities.iter().any(|n| !n.is_finite() || !(0.0..=1.0).contains(n))
-            || self.reactions.laugh_base > self.reactions.laugh_cap {
-            return Err("大笑概率应在 0% 到 100% 之间，且上限不能小于基础概率。".into());
-        }
         if !self.pet_scale.is_finite() || !(0.6..=1.5).contains(&self.pet_scale) {
             return Err("奶蛙大小应在 60% 到 150% 之间。".into());
         }

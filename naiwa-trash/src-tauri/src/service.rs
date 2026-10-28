@@ -86,17 +86,7 @@ impl Service {
         for failure in &failures {
             self.record("error", format!("{}：{}", failure.name, failure.message));
         }
-        let reaction = if count == 0 { None } else {
-            let policy = &self.document.settings.reactions;
-            let probability = (policy.laugh_base + policy.laugh_per_extra_item * (count - 1) as f64)
-                .min(policy.laugh_cap);
-            Some(if rand::random::<f64>() < probability {
-                "laugh".into()
-            } else {
-                let pool = &self.runtime.reaction_actions;
-                pool[rand::random_range(0..pool.len())].clone()
-            })
-        };
+        let reaction = (count > 0).then(|| self.runtime.feed_reaction.clone());
         let warning = self.persist();
         FeedReceipt { accepted, failures, reaction, warning }
     }

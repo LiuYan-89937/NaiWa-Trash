@@ -1,0 +1,47 @@
+{
+  "imports": [
+    [
+      "naiwa-actions-v4",
+      [
+        "think",
+        "surprised",
+        "wave",
+        "blink"
+      ]
+    ],
+    [
+      "naiwa-actions-v6",
+      [
+        "laugh",
+        "fart"
+      ]
+    ],
+    [
+      "naiwa-mouth",
+      [
+        "mouth"
+      ]
+    ],
+    [
+      "naiwa-jump-v7",
+      [
+        "jump"
+      ]
+    ]
+  ],
+  "audio": {
+    "laugh": {
+      "source": "audio/laugh-playback.wav",
+      "volume": 0.75,
+      "duration_seconds": 12.455465,
+      "credit": "yugh6（握石竹）· Naiwa 原版笑声",
+      "source_url": "https://github.com/yugh6/Naiwa/blob/main/原版笑声.wav",
+      "licence": "audio/source-LICENCE",
+      "original_source": "audio/laugh.wav",
+      "trim": {
+        "start_seconds": 0.452744,
+        "end_seconds": 12.908209
+      }
+    }
+  }
+}

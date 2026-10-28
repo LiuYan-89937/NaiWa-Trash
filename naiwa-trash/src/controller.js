@@ -1,3 +1,5 @@
+import {IdleStateMachine} from './idle-state-machine.js';
+
 export class PetController {
   constructor({animator, shredder, runtime, recycle, notify, showBusy}) {
     Object.assign(this, {animator, shredder, runtime, recycle, notify, showBusy});
@@ -5,27 +7,19 @@ export class PetController {
     this.running = false;
     this.hovering = false;
     this.mode = 'idle';
-    this.idleTimer = null;
+    this.idleState = new IdleStateMachine(animator, runtime.idle, notify);
   }
 
   idle() {
     this.mode = 'idle';
-    this.animator.play('idle');
-    clearTimeout(this.idleTimer);
-    const delay = this.runtime.idle_delay_min_ms
-      + Math.random() * (this.runtime.idle_delay_max_ms - this.runtime.idle_delay_min_ms);
-    this.idleTimer = setTimeout(async () => {
-      const pool = this.runtime.idle_actions;
-      const completed = await this.animator.play(pool[Math.floor(Math.random() * pool.length)]);
-      if (completed && !this.running && !this.hovering) this.idle();
-    }, delay);
+    this.idleState.start();
   }
 
   async hover(active) {
     this.hovering = active;
     if (this.running) return;
     if (active && this.mode !== 'hover') {
-      clearTimeout(this.idleTimer);
+      this.idleState.stop();
       this.mode = 'hover';
       const completed = await this.animator.play('mouth-open');
       if (completed && this.hovering && !this.running) this.animator.play('mouth-hold', {loop: true});
@@ -43,7 +37,7 @@ export class PetController {
 
   async drain() {
     this.running = true;
-    clearTimeout(this.idleTimer);
+    this.idleState.stop();
     this.showBusy(true);
     while (this.queue.length) {
       this.mode = 'busy';
@@ -89,8 +83,8 @@ export class PetController {
     });
   }
 
-  preview(action) {
-    if (!this.animator.catalog.previews.includes(action)) return;
-    this.enqueue(() => this.animator.play(action));
+  clicked() {
+    if (this.running) return;
+    this.enqueue(() => this.animator.play(this.runtime.interaction.click_action));
   }
 }

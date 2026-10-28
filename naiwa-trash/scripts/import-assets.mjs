@@ -3,13 +3,9 @@ import {resolve, join} from 'node:path';
 const project = resolve(import.meta.dirname, '..');
 const source = resolve(project, '..', 'naiwa-animation', 'output');
 const output = join(project, 'public', 'pet');
-const selections = [
-  ['naiwa-actions-v4', ['jump', 'think', 'surprised', 'wave', 'blink']],
-  ['naiwa-actions-v6', ['laugh', 'fart']],
-  ['naiwa-mouth', ['mouth']],
-];
+const assets = JSON.parse(await readFile(join(project, 'config', 'assets.json'), 'utf8'));
 const clips = {};
-for (const [version, ids] of selections) {
+for (const [version, ids] of assets.imports) {
   const directory = join(source, version);
   const manifest = JSON.parse(await readFile(join(directory, 'actions.json'), 'utf8'));
   for (const id of ids) {
@@ -28,7 +24,10 @@ for (const [version, ids] of selections) {
         ({frame, duration: (segment.durations?.[index] ?? segment.duration) * 1000})
       )).flat()
     );
-    clips[id] = {label: action.label, frames, sequence};
+    clips[id] = {label: action.label, frames, sequence,
+      ...(action.registration ? {registration: action.registration} : {}),
+      ...(assets.audio[id] ? {audio: assets.audio[id]} : {}),
+    };
   }
 }
 const mouth = clips.mouth.frames;

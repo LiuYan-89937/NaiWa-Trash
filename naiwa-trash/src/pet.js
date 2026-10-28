@@ -6,6 +6,7 @@ import defaults from '../config/defaults.json';
 import {FrameAnimator} from './animator.js';
 import {Shredder} from './shredder.js';
 import {PetController} from './controller.js';
+import {bindPetGesture} from './pet-gesture.js';
 import './pet.css';
 
 const pet = document.querySelector('#pet');
@@ -26,12 +27,14 @@ stage.addEventListener('contextmenu', event => {
   invokeAction('show_settings');
 });
 document.querySelector('#move').addEventListener('pointerdown', event => {
-  if (event.button === 0) windowHandle.startDragging().catch(error => notify(String(error)));
+  if (event.button !== 0) return;
+  event.preventDefault();
+  windowHandle.startDragging().catch(error => notify(String(error)));
 });
 
 async function main() {
   const catalog = await fetch('./pet/catalog.json').then(response => response.json());
-  const animator = new FrameAnimator(pet, catalog, './pet/');
+  const animator = new FrameAnimator(pet, catalog, './pet/', notify);
   await animator.preload();
   const controller = new PetController({
     animator, runtime: defaults.runtime,
@@ -39,11 +42,17 @@ async function main() {
     recycle: token => invoke('recycle_drop', {token}), notify,
     showBusy: value => stage.classList.toggle('busy', value),
   });
+  bindPetGesture(pet, {
+    distance: defaults.runtime.interaction.drag_threshold_px,
+    drag: () => windowHandle.startDragging(),
+    click: () => controller.clicked(), onError: notify,
+  });
   let scale;
   let pixelRatio = await windowHandle.scaleFactor();
   async function updateState(state) {
-    if (scale === state.settings.pet_scale) return;
-    scale = state.settings.pet_scale;
+    const nextScale = state.settings.pet_scale * defaults.runtime.pet.scale;
+    if (scale === nextScale) return;
+    scale = nextScale;
     document.documentElement.style.setProperty('--pet-width', defaults.runtime.pet.width * scale + 'px');
     document.documentElement.style.setProperty('--pet-height', defaults.runtime.pet.height * scale + 'px');
     await windowHandle.setSize(new LogicalSize(
@@ -57,6 +66,7 @@ async function main() {
     return px >= rect.left && px <= rect.right && py >= rect.top && py <= rect.bottom;
   }
   const cleanup = [];
+  cleanup.push(await windowHandle.onScaleChanged(({payload}) => { pixelRatio = payload.scaleFactor; }));
   cleanup.push(await windowHandle.onDragDropEvent(event => {
     const drop = event.payload;
     if (drop.type === 'enter' || drop.type === 'over') {
@@ -74,7 +84,6 @@ async function main() {
   }));
   cleanup.push(await listen('cleanup-complete', ({payload}) => controller.cleaned(payload)));
   cleanup.push(await listen('operation-error', ({payload}) => notify(payload)));
-  cleanup.push(await listen('preview-action', ({payload}) => controller.preview(payload.action)));
   cleanup.push(await listen('state-changed', ({payload}) => updateState(payload).catch(error => notify(String(error)))));
   await updateState(await invoke('get_state'));
   window.addEventListener('pagehide', () => cleanup.forEach(unlisten => unlisten()), {once: true});

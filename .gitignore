@@ -2,3 +2,33 @@ naiwa-animation/AGENTS.md
 .DS_Store
 naiwa-animation/episodes/naiwa/制作说明.md
 naiwa-animation/episodes/naiwa-reference/制作说明.md
+releases/0.1.0/naiwa-trash-source.zip
+
+# Generated dependencies, build caches and release packages
+**/node_modules/
+**/dist/
+**/target/
+/naiwa-trash/src-tauri/gen/
+/releases/
+**/coverage/
+*.log
+
+# Local credentials and signing material (keep example configuration)
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.p12
+*.pfx
+*.pem
+*.key
+*.mobileprovision
+
+# OS and editor temporary files
+._*
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+.idea/

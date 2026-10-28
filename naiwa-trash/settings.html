@@ -1,29 +1,19 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>奶蛙回收站 · 设置</title></head><body>
-<main>
-<header><img src="./pet/frames/mouth/00.png" alt=""><div><p class="eyebrow">NAIWA RECYCLE</p><h1>奶蛙回收站</h1><p>把不用的文件喂给奶蛙。</p></div><button id="open-trash" class="secondary">打开系统废纸篓 ↗</button></header>
-<section class="stats" aria-label="使用状态"><article><span>累计吃掉</span><strong id="lifetime">—</strong><small>项文件或文件夹</small></article><article><span>系统废纸篓</span><strong id="trash-count">未读取</strong><small id="trash-size">点击刷新读取数量与容量</small></article><article><span>已清理</span><strong id="cleanup-count">—</strong><small id="last-cleanup">尚未清理</small></article></section>
-<div class="status-row"><span id="measurement-time"></span><button id="refresh" class="text-button">刷新废纸篓状态</button></div>
-<div id="problem" class="notice error" hidden></div>
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>奶蛙回收站 · 设置</title></head>
+<body><main>
+<header><img src="./pet/frames/mouth/00.png" alt=""><div><h1>奶蛙回收站</h1><p>清理一下，放个屁。</p></div></header>
 <form id="preferences">
-<section class="panel"><div class="section-title"><div><h2>吃完之后</h2><p>吃得越多，越容易捧腹大笑。其余随机动作是跳跃、思考、受惊、挥手和眨眼。</p></div></div>
-<div class="fields thirds">
-<label>首项大笑概率<div class="number"><input id="laugh-base" type="number" min="0" max="100" step="1" required><span>%</span></div></label>
-<label>每多一项增加<div class="number"><input id="laugh-increment" type="number" min="0" max="100" step="0.5" required><span>个百分点</span></div></label>
-<label>大笑概率上限<div class="number"><input id="laugh-cap" type="number" min="0" max="100" step="1" required><span>%</span></div></label>
-</div></section>
-<section class="panel cleanup"><div class="section-title"><div><h2>清理就放屁</h2><p>成功清理后，播放“放屁 · 尴尬回头”。空废纸篓或清理失败时不播放。</p></div><label class="switch"><input id="cleanup-enabled" type="checkbox"><span>自动清理</span></label></div>
-<div class="notice">清理范围：<strong>整个系统废纸篓</strong>，包括其他方式放进去的文件。清理后文件会被永久删除。</div>
-<p class="hint">以下条件满足任意一项即触发。自动清理仅在奶蛙运行时执行。</p>
-<div class="trigger"><label><input id="interval-enabled" type="checkbox">按时间间隔</label><div class="number"><input id="interval-hours" type="number" min="0.01" max="8760" step="0.01"><span>小时</span></div></div>
-<div class="trigger"><label><input id="count-enabled" type="checkbox">按废纸篓项目数</label><div class="number"><input id="item-limit" type="number" min="1" step="1"><span>项</span></div></div>
-<div class="trigger"><label><input id="size-enabled" type="checkbox">按废纸篓容量</label><div class="number"><input id="size-limit" type="number" min="1" step="1"><span>MiB</span></div></div>
-<p class="hint">统计整个系统废纸篓；文件夹作为回收项目计数。容量暂时无法读取时，不触发容量清理。</p>
-<div class="manual"><span>也可以现在清理</span><button id="clean-now" type="button" class="danger">永久清空整个废纸篓</button></div>
+<section class="card">
+<label class="toggle-row" for="cleanup-enabled"><span>自动清理</span><span class="toggle"><input id="cleanup-enabled" type="checkbox"><span class="toggle-track"></span></span></label>
+<div class="rule">
+<label class="field-label" for="cleanup-method">什么时候清理？</label>
+<select id="cleanup-method"><option value="interval_hours">每隔一段时间</option><option value="item_limit">废纸篓装够文件</option><option value="size_limit_mib">废纸篓达到容量</option></select>
+<div class="threshold"><span id="threshold-prefix">每隔</span><input id="threshold" type="number" inputmode="decimal" required><span id="threshold-unit">小时</span></div>
+</div>
+<p class="scope">清理会永久清空整个系统废纸篓。</p>
+<button type="submit" id="save" class="primary" disabled>保存设置</button>
 </section>
-<section class="panel"><h2>桌面上的奶蛙</h2><label class="scale-label" for="pet-scale">显示大小 <output id="scale-value"></output></label><input id="pet-scale" type="range" min="60" max="150" step="5"></section>
-<footer><span id="feedback" role="status" aria-live="polite"></span><button type="submit" id="save">保存设置</button></footer>
 </form>
-<section class="panel"><h2>动作预览</h2><p>点击后在桌面奶蛙上播放，仅演示动作，不执行清理。</p><div id="action-buttons" class="action-buttons"></div></section>
-<section class="panel"><h2>最近记录</h2><ol id="history" class="history"></ol></section>
-<div class="bottom"><span>文件留在本机 · 无网络上传</span><button id="quit" class="text-button">退出奶蛙</button></div>
+<div class="quick-actions"><button id="open-trash">看看废纸篓 ↗</button><button id="clean-now">现在清理 · 放屁</button></div>
+<p id="feedback" role="status" aria-live="polite"></p>
 </main><script type="module" src="/src/settings.js"></script></body></html>

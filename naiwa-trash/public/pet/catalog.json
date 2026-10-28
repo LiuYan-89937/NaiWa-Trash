@@ -2,38 +2,6 @@
   "width": 192,
   "height": 208,
   "clips": {
-    "jump": {
-      "label": "跳跃",
-      "frames": [
-        "frames/jump/00.png",
-        "frames/jump/01.png",
-        "frames/jump/02.png",
-        "frames/jump/03.png",
-        "frames/jump/04.png"
-      ],
-      "sequence": [
-        {
-          "frame": 0,
-          "duration": 550
-        },
-        {
-          "frame": 1,
-          "duration": 140
-        },
-        {
-          "frame": 2,
-          "duration": 180
-        },
-        {
-          "frame": 3,
-          "duration": 120
-        },
-        {
-          "frame": 4,
-          "duration": 450
-        }
-      ]
-    },
     "think": {
       "label": "思考",
       "frames": [
@@ -435,7 +403,20 @@
           "frame": 7,
           "duration": 100
         }
-      ]
+      ],
+      "audio": {
+        "source": "audio/laugh-playback.wav",
+        "volume": 0.75,
+        "duration_seconds": 12.455465,
+        "credit": "yugh6（握石竹）· Naiwa 原版笑声",
+        "source_url": "https://github.com/yugh6/Naiwa/blob/main/原版笑声.wav",
+        "licence": "audio/source-LICENCE",
+        "original_source": "audio/laugh.wav",
+        "trim": {
+          "start_seconds": 0.452744,
+          "end_seconds": 12.908209
+        }
+      }
     },
     "fart": {
       "label": "放屁 · 尴尬回头",
@@ -530,6 +511,58 @@
           "duration": 550
         }
       ]
+    },
+    "jump": {
+      "label": "跳跃",
+      "frames": [
+        "frames/jump/00.png",
+        "frames/jump/01.png",
+        "frames/jump/02.png",
+        "frames/jump/03.png",
+        "frames/jump/04.png",
+        "frames/jump/05.png",
+        "frames/jump/06.png",
+        "frames/jump/07.png"
+      ],
+      "sequence": [
+        {
+          "frame": 0,
+          "duration": 260
+        },
+        {
+          "frame": 1,
+          "duration": 100
+        },
+        {
+          "frame": 2,
+          "duration": 120
+        },
+        {
+          "frame": 3,
+          "duration": 80
+        },
+        {
+          "frame": 4,
+          "duration": 180
+        },
+        {
+          "frame": 5,
+          "duration": 80
+        },
+        {
+          "frame": 6,
+          "duration": 120
+        },
+        {
+          "frame": 7,
+          "duration": 300
+        }
+      ],
+      "registration": {
+        "scale": 1.12,
+        "x": -12.02000000000001,
+        "y": -23.120000000000033
+      }
     },
     "idle": {
       "label": "待机",

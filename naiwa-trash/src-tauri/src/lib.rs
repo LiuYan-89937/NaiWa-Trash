@@ -91,8 +91,8 @@ fn show_settings(app: AppHandle) -> Result<(), String> {
         return window.set_focus().map_err(|e| e.to_string());
     }
     WebviewWindowBuilder::new(&app, "settings", WebviewUrl::App("settings.html".into()))
-        .title("奶蛙回收站 · 设置").inner_size(760.0, 800.0).min_inner_size(640.0, 600.0)
-        .resizable(true).build().map_err(|e| e.to_string())?;
+        .title("奶蛙回收站 · 设置").inner_size(500.0, 560.0)
+        .resizable(false).build().map_err(|e| e.to_string())?;
     Ok(())
 }
 

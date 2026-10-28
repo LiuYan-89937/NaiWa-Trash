@@ -30,6 +30,7 @@ def ffmpeg(*arguments):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('manifest', type=Path)
+    parser.add_argument('--frames-only', action='store_true')
     args = parser.parse_args()
     manifest_path = args.manifest.resolve()
     root = manifest_path.parent
@@ -42,7 +43,10 @@ def main():
     canvas = manifest['canvas']
     results, cards = [], []
     for action in manifest['actions']:
-        source = Path(manifest['sourceDirectory']) / action['source']
+        source_directory = Path(manifest['sourceDirectory'])
+        if not source_directory.is_absolute():
+            source_directory = root / source_directory
+        source = source_directory / action['source']
         strip_path = root / 'decoded' / (action['id'] + '.png')
         shutil.copy2(source, strip_path)
         with Image.open(strip_path) as source_image:
@@ -53,6 +57,20 @@ def main():
         directory.mkdir(parents=True, exist_ok=True)
         for index, frame in enumerate(frames):
             frame.save(directory / f'{index:02d}.png')
+        if calibration := action.get('calibration'):
+            with Image.open(root / calibration['reference']) as reference:
+                target = reference.convert('RGBA').getchannel('A').point(lambda a: 255 if a > 16 else 0).getbbox()
+            neutral = frames[calibration['neutralFrame']].getchannel('A').point(lambda a: 255 if a > 16 else 0).getbbox()
+            scale = (target[3] - target[1]) / (neutral[3] - neutral[1])
+            action['registration'] = {
+                'scale': scale,
+                'x': (target[0] + target[2]) / 2 - scale * (neutral[0] + neutral[2]) / 2,
+                'y': target[3] - scale * neutral[3],
+            }
+        if args.frames_only:
+            print(json.dumps({'id': action['id'], 'frames': len(frames),
+                              'registration': action.get('registration')}, ensure_ascii=False), flush=True)
+            continue
         sequence = sequence_for(action)
         duration = sum(seconds for _, seconds in sequence)
         concat_path = directory / 'timing.ffconcat'
@@ -82,6 +100,9 @@ def main():
         cards.append(f'<article><div class="stage"><img src="data:image/gif;base64,{data}" alt="{label}" width="192" height="208"></div>'
                      f'<h2>{label}</h2><p>{len(frames)} 个关键姿态 · {duration:.2f} 秒一轮</p>'
                      f'<a href="previews/{action["id"]}.mp4">观看视频</a></article>')
+    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
+    if args.frames_only:
+        return
     (root / 'records' / 'exports.json').write_text(json.dumps(results, ensure_ascii=False, indent=2) + '\n')
     gallery = manifest['gallery']
     reference_cards = []
