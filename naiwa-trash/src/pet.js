@@ -22,6 +22,7 @@ function notify(message) {
 }
 const invokeAction = (command, args) => invoke(command, args).catch(error => notify(String(error)));
 document.querySelector('#settings').addEventListener('click', () => invokeAction('show_settings'));
+document.querySelector('#hide').addEventListener('click', () => invokeAction('hide_pet'));
 stage.addEventListener('contextmenu', event => {
   event.preventDefault();
   invokeAction('show_settings');

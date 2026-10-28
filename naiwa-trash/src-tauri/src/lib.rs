@@ -12,6 +12,7 @@ struct DropGrant { paths: Vec<PathBuf>, issued_at: u64 }
 struct AppState {
     service: Arc<Mutex<Service>>,
     drops: Mutex<HashMap<String, DropGrant>>,
+    settings_window: Mutex<()>,
     runtime: RuntimeConfig,
 }
 
@@ -84,16 +85,34 @@ async fn open_trash() -> Result<(), String> {
     tauri::async_runtime::spawn_blocking(platform::open_trash).await.map_err(|e| e.to_string())?
 }
 
-#[tauri::command]
-fn show_settings(app: AppHandle) -> Result<(), String> {
+fn open_settings(app: &AppHandle) -> Result<(), String> {
+    let state = app.state::<AppState>();
+    let _guard = state.settings_window.lock().map_err(|e| e.to_string())?;
     if let Some(window) = app.get_webview_window("settings") {
         window.show().map_err(|e| e.to_string())?;
         return window.set_focus().map_err(|e| e.to_string());
     }
-    WebviewWindowBuilder::new(&app, "settings", WebviewUrl::App("settings.html".into()))
+    WebviewWindowBuilder::new(app, "settings", WebviewUrl::App("settings.html".into()))
         .title("奶蛙回收站 · 设置").inner_size(500.0, 560.0)
         .resizable(false).build().map_err(|e| e.to_string())?;
     Ok(())
+}
+
+#[tauri::command]
+async fn show_settings(app: AppHandle) -> Result<(), String> {
+    tauri::async_runtime::spawn_blocking(move || open_settings(&app)).await.map_err(|e| e.to_string())?
+}
+
+#[tauri::command]
+fn hide_pet(window: WebviewWindow) -> Result<(), String> {
+    only_window(&window, "pet")?;
+    window.hide().map_err(|e| e.to_string())
+}
+
+fn show_pet(app: &AppHandle) -> Result<(), String> {
+    let window = app.get_webview_window("pet").ok_or("找不到奶蛙窗口。")?;
+    window.show().map_err(|e| e.to_string())?;
+    window.set_focus().map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -118,10 +137,7 @@ fn monitor(app: AppHandle, service: Arc<Mutex<Service>>, seconds: u64) {
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_single_instance::init(|app, _, _| {
-            if let Some(window) = app.get_webview_window("pet") {
-                let _ = window.show();
-                let _ = window.set_focus();
-            }
+            let _ = show_pet(app);
         }))
         .plugin(tauri_plugin_window_state::Builder::default()
             .with_state_flags(tauri_plugin_window_state::StateFlags::POSITION).build())
@@ -131,17 +147,27 @@ pub fn run() {
             let runtime = defaults.runtime.clone();
             let store = store::Store::new(app.path().app_data_dir()?).map_err(std::io::Error::other)?;
             let service = Arc::new(Mutex::new(Service::new(store, defaults).map_err(std::io::Error::other)?));
-            app.manage(AppState { service: service.clone(), drops: Mutex::new(HashMap::new()), runtime: runtime.clone() });
+            app.manage(AppState { service: service.clone(), drops: Mutex::new(HashMap::new()),
+                settings_window: Mutex::new(()), runtime: runtime.clone() });
             use tauri::{menu::{Menu, MenuItem}, tray::TrayIconBuilder};
             let settings = MenuItem::with_id(app, "settings", "设置与清理", true, None::<&str>)?;
             let show = MenuItem::with_id(app, "show", "显示奶蛙", true, None::<&str>)?;
+            let hide = MenuItem::with_id(app, "hide", "收起奶蛙", true, None::<&str>)?;
             let quit = MenuItem::with_id(app, "quit", "退出奶蛙", true, None::<&str>)?;
-            let menu = Menu::with_items(app, &[&show, &settings, &quit])?;
+            let menu = Menu::with_items(app, &[&show, &hide, &settings, &quit])?;
             let mut tray = TrayIconBuilder::new().menu(&menu).tooltip("奶蛙回收站");
             if let Some(icon) = app.default_window_icon() { tray = tray.icon(icon.clone()); }
             tray.on_menu_event(|app, event| match event.id().as_ref() {
-                "settings" => { let _ = show_settings(app.clone()); }
-                "show" => { if let Some(window) = app.get_webview_window("pet") { let _ = window.show(); } }
+                "settings" => {
+                    let app = app.clone();
+                    tauri::async_runtime::spawn(async move {
+                        if let Err(error) = show_settings(app.clone()).await {
+                            let _ = app.emit_to("pet", "operation-error", error);
+                        }
+                    });
+                }
+                "show" => { let _ = show_pet(app); }
+                "hide" => { if let Some(window) = app.get_webview_window("pet") { let _ = window.hide(); } }
                 "quit" => app.exit(0),
                 _ => {}
             }).build(app)?;
@@ -167,7 +193,7 @@ pub fn run() {
         })
         .invoke_handler(tauri::generate_handler![
             get_state, refresh_trash, save_settings, recycle_drop, discard_drop,
-            clean_now, open_trash, show_settings, exit_app
+            clean_now, open_trash, show_settings, hide_pet, exit_app
         ])
         .run(tauri::generate_context!())
         .expect("奶蛙回收站启动失败");
