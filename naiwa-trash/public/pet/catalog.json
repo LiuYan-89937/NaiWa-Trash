@@ -418,53 +418,6 @@
         }
       }
     },
-    "fart": {
-      "label": "放屁 · 尴尬回头",
-      "frames": [
-        "frames/fart/00.png",
-        "frames/fart/01.png",
-        "frames/fart/02.png",
-        "frames/fart/03.png",
-        "frames/fart/04.png",
-        "frames/fart/05.png",
-        "frames/fart/06.png",
-        "frames/fart/07.png"
-      ],
-      "sequence": [
-        {
-          "frame": 0,
-          "duration": 800
-        },
-        {
-          "frame": 1,
-          "duration": 240
-        },
-        {
-          "frame": 2,
-          "duration": 320
-        },
-        {
-          "frame": 3,
-          "duration": 160
-        },
-        {
-          "frame": 4,
-          "duration": 200
-        },
-        {
-          "frame": 5,
-          "duration": 280
-        },
-        {
-          "frame": 6,
-          "duration": 320
-        },
-        {
-          "frame": 7,
-          "duration": 800
-        }
-      ]
-    },
     "mouth": {
       "label": "张嘴接文件",
       "frames": [
@@ -562,6 +515,84 @@
         "scale": 1.12,
         "x": -12.02000000000001,
         "y": -23.120000000000033
+      }
+    },
+    "fart": {
+      "label": "喷射放屁 · 尴尬回头",
+      "frames": [
+        "frames/fart/00.png",
+        "frames/fart/01.png",
+        "frames/fart/02.png",
+        "frames/fart/03.png",
+        "frames/fart/04.png",
+        "frames/fart/05.png",
+        "frames/fart/06.png",
+        "frames/fart/07.png"
+      ],
+      "sequence": [
+        {
+          "frame": 0,
+          "duration": 550
+        },
+        {
+          "frame": 1,
+          "duration": 220
+        },
+        {
+          "frame": 2,
+          "duration": 200
+        },
+        {
+          "frame": 3,
+          "duration": 200
+        },
+        {
+          "frame": 4,
+          "duration": 200
+        },
+        {
+          "frame": 3,
+          "duration": 200
+        },
+        {
+          "frame": 2,
+          "duration": 200
+        },
+        {
+          "frame": 5,
+          "duration": 280
+        },
+        {
+          "frame": 6,
+          "duration": 700
+        },
+        {
+          "frame": 7,
+          "duration": 550
+        }
+      ],
+      "registration": {
+        "scale": 1.005128205128205,
+        "x": -0.9923076923076906,
+        "y": -0.030769230769237765
+      },
+      "cycle": {
+        "start": 2,
+        "end": 6
+      },
+      "audio": {
+        "source": "audio/fart-loop.wav",
+        "original_source": "audio/fart-original.mp3",
+        "volume": 0.7,
+        "credit": "FartSoundboard · 100 Long Fart Wav",
+        "source_url": "https://fartsoundboard.com/sounds/100-long-fart-wav-50288.mp3",
+        "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "trim": {
+          "start_seconds": 0.289841,
+          "end_seconds": 3.617959
+        },
+        "loop_crossfade_seconds": 0.15,
+        "duration_seconds": 3.178118
       }
     },
     "idle": {

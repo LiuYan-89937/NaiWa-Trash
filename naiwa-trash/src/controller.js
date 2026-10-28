@@ -1,10 +1,12 @@
 import {IdleStateMachine} from './idle-state-machine.js';
+import {fartDurationMs} from './fart-duration.js';
 
 export class PetController {
-  constructor({animator, shredder, runtime, recycle, notify, showBusy}) {
-    Object.assign(this, {animator, shredder, runtime, recycle, notify, showBusy});
+  constructor({animator, shredder, gas, runtime, recycle, notify, showBusy}) {
+    Object.assign(this, {animator, shredder, gas, runtime, recycle, notify, showBusy});
     this.queue = [];
     this.running = false;
+    this.current = null;
     this.hovering = false;
     this.mode = 'idle';
     this.idleState = new IdleStateMachine(animator, runtime.idle, notify);
@@ -17,6 +19,7 @@ export class PetController {
 
   async hover(active) {
     this.hovering = active;
+    if (active) this.interrupt();
     if (this.running) return;
     if (active && this.mode !== 'hover') {
       this.idleState.stop();
@@ -30,8 +33,12 @@ export class PetController {
     }
   }
 
-  enqueue(task) {
-    this.queue.push(task);
+  interrupt() {
+    if (this.current?.interruptible) this.animator.stop();
+  }
+
+  enqueue(task, {interruptible = false} = {}) {
+    this.queue.push({run: task, interruptible});
     if (!this.running) this.drain();
   }
 
@@ -41,12 +48,14 @@ export class PetController {
     this.showBusy(true);
     while (this.queue.length) {
       this.mode = 'busy';
-      try { await this.queue.shift()(); }
+      this.current = this.queue.shift();
+      try { await this.current.run(); }
       catch (error) {
         this.notify(String(error));
         await this.animator.play('surprised');
       }
     }
+    this.current = null;
     this.running = false;
     this.showBusy(false);
     this.mode = 'idle';
@@ -55,6 +64,7 @@ export class PetController {
 
   feed(token, count) {
     this.hovering = false;
+    this.interrupt();
     this.enqueue(async () => {
       this.notify('正在接住 ' + count + ' 项文件…');
       await this.animator.play('mouth-open');
@@ -78,9 +88,11 @@ export class PetController {
   cleaned(result) {
     this.enqueue(async () => {
       this.notify('清理完成，减少 ' + result.removed_items + ' 项');
-      await this.animator.play('fart');
+      const durationMs = fartDurationMs(result.removed_items, this.runtime.fart);
+      await this.animator.play('fart', {durationMs,
+        onCycleChange: active => active ? this.gas.start() : this.gas.stop()});
       if (result.warning) this.notify(result.warning);
-    });
+    }, {interruptible: true});
   }
 
   clicked() {

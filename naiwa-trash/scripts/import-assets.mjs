@@ -26,6 +26,7 @@ for (const [version, ids] of assets.imports) {
     );
     clips[id] = {label: action.label, frames, sequence,
       ...(action.registration ? {registration: action.registration} : {}),
+      ...(action.cycle ? {cycle: action.cycle} : {}),
       ...(assets.audio[id] ? {audio: assets.audio[id]} : {}),
     };
   }

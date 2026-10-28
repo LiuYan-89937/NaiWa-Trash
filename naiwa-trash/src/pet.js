@@ -7,6 +7,7 @@ import {FrameAnimator} from './animator.js';
 import {Shredder} from './shredder.js';
 import {PetController} from './controller.js';
 import {bindPetGesture} from './pet-gesture.js';
+import {GasJet} from './gas-jet.js';
 import './pet.css';
 
 const pet = document.querySelector('#pet');
@@ -39,6 +40,7 @@ async function main() {
   await animator.preload();
   const controller = new PetController({
     animator, runtime: defaults.runtime,
+    gas: new GasJet(document.querySelector('#gas'), pet, defaults.runtime.fart.jet),
     shredder: new Shredder(document.querySelector('#shreds'), pet, defaults.runtime.shred),
     recycle: token => invoke('recycle_drop', {token}), notify,
     showBusy: value => stage.classList.toggle('busy', value),

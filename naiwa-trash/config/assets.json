@@ -12,8 +12,7 @@
     [
       "naiwa-actions-v6",
       [
-        "laugh",
-        "fart"
+        "laugh"
       ]
     ],
     [
@@ -26,6 +25,12 @@
       "naiwa-jump-v7",
       [
         "jump"
+      ]
+    ],
+    [
+      "naiwa-fart-v10",
+      [
+        "fart"
       ]
     ]
   ],
@@ -42,6 +47,20 @@
         "start_seconds": 0.452744,
         "end_seconds": 12.908209
       }
+    },
+    "fart": {
+      "source": "audio/fart-loop.wav",
+      "original_source": "audio/fart-original.mp3",
+      "volume": 0.7,
+      "credit": "FartSoundboard · 100 Long Fart Wav",
+      "source_url": "https://fartsoundboard.com/sounds/100-long-fart-wav-50288.mp3",
+      "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "trim": {
+        "start_seconds": 0.289841,
+        "end_seconds": 3.617959
+      },
+      "loop_crossfade_seconds": 0.15,
+      "duration_seconds": 3.178118
     }
   }
 }

@@ -8,7 +8,7 @@ Rust + Tauri 的 macOS / Windows 透明桌面回收站。现有跳跃、思考�
 - 只拖过、不松手，不移动文件。回收失败的项目会显示错误，且不计入成功投喂数量。
 - 吃完后固定捧腹大笑，配合内置原版笑声，约 12.5 秒。播放素材去掉了原音频开头约 0.45 秒及尾部的静音，声音预加载完成后再同步启动画面，动作保持原有节奏。动画持续到音频结束，离线也可播放。
 - 待机以眨眼为主，默认持续 30–90 秒后随机穿插一次跳跃、思考或挥手，再回到眨眼。穿插动作按随机顺序轮换，避免连续重复。拖入文件会立即中断待机，投喂结束后自动恢复。
-- 放屁不属于投喂随机动作；整个系统废纸篓成功清理后才播放。
+- 放屁不属于投喂随机动作；整个系统废纸篓成功清理后才播放。清理 1 项时约 4 秒，每增加 1 项延长 0.4 秒，最多 60 秒；中间连续喷气并循环屁声，最后尴尬回头。放屁时拖入新文件会中断放屁并接收文件。
 - 单击奶蛙播放受惊；按住本体移动即可拖动，拖动不会触发受惊。底部移动按钮也可使用。齿轮或右键打开黄底绿字的简洁设置页。菜单栏 / 托盘也可打开设置或退出。
 - 点击奶蛙底部的「−」可收起；macOS 菜单栏或 Windows 系统托盘的奶蛙菜单可重新显示、收起、打开设置或退出。收起后程序继续运行，启用的自动清理仍会按设置执行。
 - macOS 不显示 Dock 图标；Windows 的奶蛙和设置窗口都不显示任务栏图标。
@@ -87,6 +87,7 @@ npm run tauri -- build --target aarch64-pc-windows-msvc --bundles nsis
 - `src-tauri/src/lib.rs`：原生拖放授权、窗口、托盘、IPC 和定时检查。
 - `src/controller.js`：待机、拖入、投喂、点击、清理完成的播放队列。
 - `src/animator.js`：按素材原始时序播放透明帧，读取动作的尺寸校准与音频信息。
+- `src/gas-jet.js`：连续喷气的粒子效果，跟随放屁循环开始与结束。
 - `src/idle-state-machine.js`：可中断的待机状态机，以眨眼为常驻动作，偶尔穿插其他动作。
 - `src/pet-gesture.js`：区分单击和按住拖动。
 - `src/shredder.js`：文件纸卡分裂、碎片轨迹和吸入口中的效果。
@@ -96,7 +97,7 @@ npm run tauri -- build --target aarch64-pc-windows-msvc --bundles nsis
 
 资源已复制到工程，打包不依赖相邻的动画工程。`scripts/import-assets.mjs` 仅供后续从原动画工程同步已认可的素材。
 
-`preview.html` 复用应用的帧动画播放器，可通过 `npm run dev` 打开 `/preview.html` 预览带声音的大笑。`scripts/export-preview.mjs <目标目录>` 可导出独立静态预览。音频的剪辑范围记录在 `config/assets.json`；如需重建播放素材，安装 FFmpeg 后运行 `node scripts/prepare-audio.mjs`，再运行素材导入脚本。打包直接使用已准备好的素材，不要求安装 FFmpeg。
+`preview.html` 与 `fart-preview.html` 复用应用的播放器，可通过 `npm run dev` 分别预览大笑和可调清理数量的放屁。`scripts/export-preview.mjs <目标目录>` 可导出独立静态预览。音频的剪辑范围与循环交叠时间记录在 `config/assets.json`；如需重建播放素材，安装 FFmpeg 后运行 `node scripts/prepare-audio.mjs`，再运行素材导入脚本。打包直接使用已准备好的素材，不要求安装 FFmpeg。
 
 ## 检查
 
@@ -107,5 +108,7 @@ npm run check:syntax
 该命令仅解析 JavaScript、JSON 和 Rust 语法，不启动应用，不执行文件回收/清空，不运行类型检查或功能测试。正式打包由 Tauri 构建流程完成。文件拖放和真实清理由用户实机验收。
 
 角色原始参考：[yugh6/Naiwa](https://github.com/yugh6/Naiwa)。原版笑声来自 yugh6（握石竹）在该项目提供的[原版笑声.wav](https://github.com/yugh6/Naiwa/blob/main/原版笑声.wav)。原文件保留为 `public/pet/audio/laugh.wav`，实际播放 `laugh-playback.wav`。参考许可保留在 `public/pet/reference-LICENCE`，音频所附 PolyForm Noncommercial License 1.0.0 保留在 `public/pet/audio/source-LICENCE`。
+
+放屁音效使用 [FartSoundboard 的 100 Long Fart](https://fartsoundboard.com/sounds/100-long-fart-wav-50288.mp3)，按该站 [CC0 1.0 许可](https://fartsoundboard.com/download/license/)提供；原音频与经首尾裁剪、交叠处理的循环版本均保留在 `public/pet/audio/`。
 
 框架文档：[Tauri 环境准备](https://v2.tauri.app/start/prerequisites/)、[Windows 打包](https://v2.tauri.app/distribute/windows-installer/)。

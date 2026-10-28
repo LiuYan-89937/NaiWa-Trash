@@ -5,11 +5,35 @@ import base64
 import html
 import importlib.util
 import json
+import math
 from pathlib import Path
 import shutil
 import subprocess
 
 from PIL import Image
+
+
+def extract_body_anchored(extraction, strip, frame_count):
+    groups = extraction.component_frame_groups(strip, frame_count)
+    if groups is None:
+        return None
+    padding = 4
+    boxes = [extraction.component_bounds(group) for group in groups]
+    anchors = [(part['bbox'][0] + part['bbox'][2]) / 2
+               for group in groups for part in [max(group, key=lambda item: item['area'])]]
+    top = max(0, min(box[1] for box in boxes) - padding)
+    bottom = min(strip.height, max(box[3] for box in boxes) + padding)
+    left = min(max(0, box[0] - padding) - anchor for box, anchor in zip(boxes, anchors, strict=True))
+    right = max(min(strip.width, box[2] + padding) - anchor for box, anchor in zip(boxes, anchors, strict=True))
+    width = math.ceil(right - left)
+    frames = []
+    for group, box, anchor in zip(groups, boxes, anchors, strict=True):
+        image = extraction.component_group_image(strip, group, padding=padding)
+        viewport = Image.new('RGBA', (width, bottom - top), (0, 0, 0, 0))
+        viewport.alpha_composite(image, (round(max(0, box[0] - padding) - anchor - left),
+                                         max(0, box[1] - padding) - top))
+        frames.append(extraction.fit_viewport_to_cell(viewport))
+    return frames
 
 
 def sequence_for(action):
@@ -50,7 +74,11 @@ def main():
         strip_path = root / 'decoded' / (action['id'] + '.png')
         shutil.copy2(source, strip_path)
         with Image.open(strip_path) as source_image:
-            frames = extraction.extract_component_frames(source_image.convert('RGBA'), action['frames'])
+            source_image = source_image.convert('RGBA')
+            if action.get('anchor') == 'body':
+                frames = extract_body_anchored(extraction, source_image, action['frames'])
+            else:
+                frames = extraction.extract_component_frames(source_image, action['frames'])
         if frames is None or len(frames) != action['frames']:
             raise RuntimeError('Cannot extract complete pose groups: ' + action['id'])
         directory = root / 'frames' / action['id']

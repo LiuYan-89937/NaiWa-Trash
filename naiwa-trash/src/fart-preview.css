@@ -1,0 +1,2 @@
+.count{display:flex;justify-content:center;align-items:center;gap:12px;margin:20px auto 0;font-size:15px;font-weight:650}.count input{width:90px;padding:7px;border:1px solid #9cac55;border-radius:10px;background:#fff9c9;color:#28622b;text-align:center;font:inherit}#duration{margin:14px 0 18px}
+.stage{position:relative;overflow:hidden}#gas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}#pet{position:relative}
