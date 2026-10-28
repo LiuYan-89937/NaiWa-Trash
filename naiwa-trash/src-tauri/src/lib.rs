@@ -94,7 +94,7 @@ fn open_settings(app: &AppHandle) -> Result<(), String> {
     }
     WebviewWindowBuilder::new(app, "settings", WebviewUrl::App("settings.html".into()))
         .title("奶蛙回收站 · 设置").inner_size(500.0, 560.0)
-        .resizable(false).build().map_err(|e| e.to_string())?;
+        .skip_taskbar(true).resizable(false).build().map_err(|e| e.to_string())?;
     Ok(())
 }
 
@@ -142,6 +142,8 @@ pub fn run() {
         .plugin(tauri_plugin_window_state::Builder::default()
             .with_state_flags(tauri_plugin_window_state::StateFlags::POSITION).build())
         .setup(|app| {
+            #[cfg(target_os = "macos")]
+            app.set_activation_policy(tauri::ActivationPolicy::Accessory);
             let defaults: Defaults = serde_json::from_str(include_str!("../../config/defaults.json"))?;
             defaults.settings.validate().map_err(std::io::Error::other)?;
             let runtime = defaults.runtime.clone();
