@@ -1,0 +1,64 @@
+{
+  "settings": {
+    "cleanup": {
+      "enabled": false,
+      "interval_hours": 24,
+      "item_limit": null,
+      "size_limit_mib": null
+    },
+    "reactions": {
+      "laugh_base": 0.12,
+      "laugh_per_extra_item": 0.045,
+      "laugh_cap": 0.85
+    },
+    "pet_scale": 1
+  },
+  "runtime": {
+    "monitor_seconds": 30,
+    "retry_seconds": 300,
+    "history_limit": 40,
+    "max_pending_drops": 32,
+    "drop_ttl_seconds": 600,
+    "idle_delay_min_ms": 8000,
+    "idle_delay_max_ms": 16000,
+    "toast_duration_ms": 4800,
+    "idle_actions": [
+      "blink",
+      "think",
+      "wave"
+    ],
+    "reaction_actions": [
+      "jump",
+      "think",
+      "surprised",
+      "wave",
+      "blink"
+    ],
+    "shred": {
+      "max_visible_files": 8,
+      "columns": 6,
+      "rows": 3,
+      "paper_width": 46,
+      "paper_height": 58,
+      "duration_ms": 1050,
+      "stagger_ms": 160,
+      "spread": 28,
+      "mouth": {
+        "x": 0.378,
+        "y": 0.225
+      },
+      "colors": [
+        "#fff8e3",
+        "#e5f0d5",
+        "#e6ecf4",
+        "#f4e2cc"
+      ]
+    },
+    "pet": {
+      "width": 240,
+      "height": 260,
+      "window_width": 336,
+      "window_height": 376
+    }
+  }
+}

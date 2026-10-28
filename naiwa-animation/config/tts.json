@@ -1,0 +1,9 @@
+{
+  "provider": "aliyun-qwen-audio",
+  "model": "qwen-audio-3.0-tts-flash",
+  "voice": "longanhuan_v3.6",
+  "endpointTemplate": "https://{workspaceId}.cn-beijing.maas.aliyuncs.com/api/v1/services/audio/tts/SpeechSynthesizer",
+  "input": {"format": "wav", "word_timestamp_enabled": true},
+  "timeoutMs": 300000,
+  "tools": {"ffmpeg": "ffmpeg", "ffprobe": "ffprobe", "audioCodec": "pcm_s16le"}
+}

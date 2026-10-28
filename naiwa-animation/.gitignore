@@ -1,0 +1,13 @@
+node_modules/
+dist/
+output/
+generated/
+public/narration/
+.env
+.env.*
+!.env.example
+private/
+*.credentials.json
+aliyun-credentials.json
+.DS_Store
+*.log

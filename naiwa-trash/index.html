@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>奶蛙回收站</title></head>
+<body>
+<main id="stage">
+  <div id="toast" role="status" aria-live="polite"></div>
+  <canvas id="shreds" aria-hidden="true"></canvas>
+  <img id="pet" alt="把文件拖到奶蛙身上，移入系统废纸篓" draggable="false">
+  <div class="toolbar"><button id="move" title="按住拖动奶蛙" aria-label="移动奶蛙">⠿</button><span>拖文件给我吃</span><button id="settings" title="设置与清理" aria-label="设置与清理">⚙</button></div>
+</main>
+<script type="module" src="/src/pet.js"></script>
+</body></html>

@@ -1,0 +1,648 @@
+{
+  "width": 192,
+  "height": 208,
+  "clips": {
+    "jump": {
+      "label": "跳跃",
+      "frames": [
+        "frames/jump/00.png",
+        "frames/jump/01.png",
+        "frames/jump/02.png",
+        "frames/jump/03.png",
+        "frames/jump/04.png"
+      ],
+      "sequence": [
+        {
+          "frame": 0,
+          "duration": 550
+        },
+        {
+          "frame": 1,
+          "duration": 140
+        },
+        {
+          "frame": 2,
+          "duration": 180
+        },
+        {
+          "frame": 3,
+          "duration": 120
+        },
+        {
+          "frame": 4,
+          "duration": 450
+        }
+      ]
+    },
+    "think": {
+      "label": "思考",
+      "frames": [
+        "frames/think/00.png",
+        "frames/think/01.png",
+        "frames/think/02.png",
+        "frames/think/03.png",
+        "frames/think/04.png",
+        "frames/think/05.png"
+      ],
+      "sequence": [
+        {
+          "frame": 0,
+          "duration": 550
+        },
+        {
+          "frame": 1,
+          "duration": 160
+        },
+        {
+          "frame": 2,
+          "duration": 250
+        },
+        {
+          "frame": 3,
+          "duration": 550
+        },
+        {
+          "frame": 4,
+          "duration": 180
+        },
+        {
+          "frame": 5,
+          "duration": 450
+        }
+      ]
+    },
+    "surprised": {
+      "label": "受惊",
+      "frames": [
+        "frames/surprised/00.png",
+        "frames/surprised/01.png",
+        "frames/surprised/02.png",
+        "frames/surprised/03.png",
+        "frames/surprised/04.png",
+        "frames/surprised/05.png",
+        "frames/surprised/06.png",
+        "frames/surprised/07.png"
+      ],
+      "sequence": [
+        {
+          "frame": 0,
+          "duration": 600
+        },
+        {
+          "frame": 1,
+          "duration": 120
+        },
+        {
+          "frame": 2,
+          "duration": 100
+        },
+        {
+          "frame": 3,
+          "duration": 180
+        },
+        {
+          "frame": 4,
+          "duration": 250
+        },
+        {
+          "frame": 5,
+          "duration": 160
+        },
+        {
+          "frame": 6,
+          "duration": 140
+        },
+        {
+          "frame": 7,
+          "duration": 500
+        }
+      ]
+    },
+    "wave": {
+      "label": "挥手",
+      "frames": [
+        "frames/wave/00.png",
+        "frames/wave/01.png",
+        "frames/wave/02.png",
+        "frames/wave/03.png"
+      ],
+      "sequence": [
+        {
+          "frame": 3,
+          "duration": 500
+        },
+        {
+          "frame": 0,
+          "duration": 140
+        },
+        {
+          "frame": 1,
+          "duration": 180
+        },
+        {
+          "frame": 2,
+          "duration": 180
+        },
+        {
+          "frame": 1,
+          "duration": 180
+        },
+        {
+          "frame": 2,
+          "duration": 180
+        },
+        {
+          "frame": 0,
+          "duration": 140
+        },
+        {
+          "frame": 3,
+          "duration": 500
+        }
+      ]
+    },
+    "blink": {
+      "label": "眨眼",
+      "frames": [
+        "frames/blink/00.png",
+        "frames/blink/01.png",
+        "frames/blink/02.png",
+        "frames/blink/03.png",
+        "frames/blink/04.png",
+        "frames/blink/05.png"
+      ],
+      "sequence": [
+        {
+          "frame": 0,
+          "duration": 1200
+        },
+        {
+          "frame": 1,
+          "duration": 60
+        },
+        {
+          "frame": 2,
+          "duration": 40
+        },
+        {
+          "frame": 3,
+          "duration": 80
+        },
+        {
+          "frame": 4,
+          "duration": 60
+        },
+        {
+          "frame": 5,
+          "duration": 800
+        }
+      ]
+    },
+    "laugh": {
+      "label": "捧腹大笑 · 保留版",
+      "frames": [
+        "frames/laugh/00.png",
+        "frames/laugh/01.png",
+        "frames/laugh/02.png",
+        "frames/laugh/03.png",
+        "frames/laugh/04.png",
+        "frames/laugh/05.png",
+        "frames/laugh/06.png",
+        "frames/laugh/07.png"
+      ],
+      "sequence": [
+        {
+          "frame": 0,
+          "duration": 100
+        },
+        {
+          "frame": 1,
+          "duration": 100
+        },
+        {
+          "frame": 2,
+          "duration": 100
+        },
+        {
+          "frame": 3,
+          "duration": 100
+        },
+        {
+          "frame": 4,
+          "duration": 100
+        },
+        {
+          "frame": 5,
+          "duration": 100
+        },
+        {
+          "frame": 6,
+          "duration": 100
+        },
+        {
+          "frame": 7,
+          "duration": 100
+        },
+        {
+          "frame": 0,
+          "duration": 100
+        },
+        {
+          "frame": 1,
+          "duration": 100
+        },
+        {
+          "frame": 2,
+          "duration": 100
+        },
+        {
+          "frame": 3,
+          "duration": 100
+        },
+        {
+          "frame": 4,
+          "duration": 100
+        },
+        {
+          "frame": 5,
+          "duration": 100
+        },
+        {
+          "frame": 6,
+          "duration": 100
+        },
+        {
+          "frame": 7,
+          "duration": 100
+        },
+        {
+          "frame": 0,
+          "duration": 100
+        },
+        {
+          "frame": 1,
+          "duration": 100
+        },
+        {
+          "frame": 2,
+          "duration": 100
+        },
+        {
+          "frame": 3,
+          "duration": 100
+        },
+        {
+          "frame": 4,
+          "duration": 100
+        },
+        {
+          "frame": 5,
+          "duration": 100
+        },
+        {
+          "frame": 6,
+          "duration": 100
+        },
+        {
+          "frame": 7,
+          "duration": 100
+        },
+        {
+          "frame": 0,
+          "duration": 100
+        },
+        {
+          "frame": 1,
+          "duration": 100
+        },
+        {
+          "frame": 2,
+          "duration": 100
+        },
+        {
+          "frame": 3,
+          "duration": 100
+        },
+        {
+          "frame": 4,
+          "duration": 100
+        },
+        {
+          "frame": 5,
+          "duration": 100
+        },
+        {
+          "frame": 6,
+          "duration": 100
+        },
+        {
+          "frame": 7,
+          "duration": 100
+        },
+        {
+          "frame": 0,
+          "duration": 100
+        },
+        {
+          "frame": 1,
+          "duration": 100
+        },
+        {
+          "frame": 2,
+          "duration": 100
+        },
+        {
+          "frame": 3,
+          "duration": 100
+        },
+        {
+          "frame": 4,
+          "duration": 100
+        },
+        {
+          "frame": 5,
+          "duration": 100
+        },
+        {
+          "frame": 6,
+          "duration": 100
+        },
+        {
+          "frame": 7,
+          "duration": 100
+        },
+        {
+          "frame": 0,
+          "duration": 100
+        },
+        {
+          "frame": 1,
+          "duration": 100
+        },
+        {
+          "frame": 2,
+          "duration": 100
+        },
+        {
+          "frame": 3,
+          "duration": 100
+        },
+        {
+          "frame": 4,
+          "duration": 100
+        },
+        {
+          "frame": 5,
+          "duration": 100
+        },
+        {
+          "frame": 6,
+          "duration": 100
+        },
+        {
+          "frame": 7,
+          "duration": 100
+        },
+        {
+          "frame": 0,
+          "duration": 100
+        },
+        {
+          "frame": 1,
+          "duration": 100
+        },
+        {
+          "frame": 2,
+          "duration": 100
+        },
+        {
+          "frame": 3,
+          "duration": 100
+        },
+        {
+          "frame": 4,
+          "duration": 100
+        },
+        {
+          "frame": 5,
+          "duration": 100
+        },
+        {
+          "frame": 6,
+          "duration": 100
+        },
+        {
+          "frame": 7,
+          "duration": 100
+        }
+      ]
+    },
+    "fart": {
+      "label": "放屁 · 尴尬回头",
+      "frames": [
+        "frames/fart/00.png",
+        "frames/fart/01.png",
+        "frames/fart/02.png",
+        "frames/fart/03.png",
+        "frames/fart/04.png",
+        "frames/fart/05.png",
+        "frames/fart/06.png",
+        "frames/fart/07.png"
+      ],
+      "sequence": [
+        {
+          "frame": 0,
+          "duration": 800
+        },
+        {
+          "frame": 1,
+          "duration": 240
+        },
+        {
+          "frame": 2,
+          "duration": 320
+        },
+        {
+          "frame": 3,
+          "duration": 160
+        },
+        {
+          "frame": 4,
+          "duration": 200
+        },
+        {
+          "frame": 5,
+          "duration": 280
+        },
+        {
+          "frame": 6,
+          "duration": 320
+        },
+        {
+          "frame": 7,
+          "duration": 800
+        }
+      ]
+    },
+    "mouth": {
+      "label": "张嘴接文件",
+      "frames": [
+        "frames/mouth/00.png",
+        "frames/mouth/01.png",
+        "frames/mouth/02.png",
+        "frames/mouth/03.png",
+        "frames/mouth/04.png",
+        "frames/mouth/05.png",
+        "frames/mouth/06.png",
+        "frames/mouth/07.png"
+      ],
+      "sequence": [
+        {
+          "frame": 0,
+          "duration": 550
+        },
+        {
+          "frame": 1,
+          "duration": 120
+        },
+        {
+          "frame": 2,
+          "duration": 120
+        },
+        {
+          "frame": 3,
+          "duration": 650
+        },
+        {
+          "frame": 4,
+          "duration": 400
+        },
+        {
+          "frame": 5,
+          "duration": 160
+        },
+        {
+          "frame": 6,
+          "duration": 250
+        },
+        {
+          "frame": 7,
+          "duration": 550
+        }
+      ]
+    },
+    "idle": {
+      "label": "待机",
+      "frames": [
+        "frames/mouth/00.png",
+        "frames/mouth/01.png",
+        "frames/mouth/02.png",
+        "frames/mouth/03.png",
+        "frames/mouth/04.png",
+        "frames/mouth/05.png",
+        "frames/mouth/06.png",
+        "frames/mouth/07.png"
+      ],
+      "sequence": [
+        {
+          "frame": 0,
+          "duration": 1000
+        }
+      ]
+    },
+    "mouth-open": {
+      "label": "张嘴",
+      "frames": [
+        "frames/mouth/00.png",
+        "frames/mouth/01.png",
+        "frames/mouth/02.png",
+        "frames/mouth/03.png",
+        "frames/mouth/04.png",
+        "frames/mouth/05.png",
+        "frames/mouth/06.png",
+        "frames/mouth/07.png"
+      ],
+      "sequence": [
+        {
+          "frame": 0,
+          "duration": 90
+        },
+        {
+          "frame": 1,
+          "duration": 90
+        },
+        {
+          "frame": 2,
+          "duration": 90
+        },
+        {
+          "frame": 3,
+          "duration": 90
+        }
+      ]
+    },
+    "mouth-hold": {
+      "label": "等待投喂",
+      "frames": [
+        "frames/mouth/00.png",
+        "frames/mouth/01.png",
+        "frames/mouth/02.png",
+        "frames/mouth/03.png",
+        "frames/mouth/04.png",
+        "frames/mouth/05.png",
+        "frames/mouth/06.png",
+        "frames/mouth/07.png"
+      ],
+      "sequence": [
+        {
+          "frame": 3,
+          "duration": 220
+        },
+        {
+          "frame": 4,
+          "duration": 220
+        }
+      ]
+    },
+    "mouth-close": {
+      "label": "咀嚼吞咽",
+      "frames": [
+        "frames/mouth/00.png",
+        "frames/mouth/01.png",
+        "frames/mouth/02.png",
+        "frames/mouth/03.png",
+        "frames/mouth/04.png",
+        "frames/mouth/05.png",
+        "frames/mouth/06.png",
+        "frames/mouth/07.png"
+      ],
+      "sequence": [
+        {
+          "frame": 5,
+          "duration": 160
+        },
+        {
+          "frame": 6,
+          "duration": 220
+        },
+        {
+          "frame": 7,
+          "duration": 160
+        }
+      ]
+    }
+  },
+  "previews": [
+    "jump",
+    "think",
+    "surprised",
+    "wave",
+    "blink",
+    "laugh",
+    "fart",
+    "mouth"
+  ],
+  "sources": [
+    "https://github.com/yugh6/Naiwa"
+  ]
+}

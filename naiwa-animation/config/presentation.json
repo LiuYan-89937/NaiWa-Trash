@@ -1,0 +1,25 @@
+{
+  "canvas": {
+    "width": 1920,
+    "height": 1080
+  },
+  "fontFamily": "PingFang SC",
+  "colors": {
+    "ink": "#222226",
+    "muted": "#74747C",
+    "line": "#DADAE2",
+    "background": "#FAFBFD"
+  },
+  "bodySize": 42,
+  "labelSize": 32,
+  "fontWeight": 400,
+  "subtitleCharacters": 34,
+  "captionLineCharacters": 34,
+  "subtitle": {
+    "y": 475,
+    "fontSize": 29,
+    "width": 1500,
+    "lineHeight": "100%",
+    "outlineWidth": 1
+  }
+}

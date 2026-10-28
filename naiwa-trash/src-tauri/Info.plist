@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>NSAppleEventsUsageDescription</key><string>奶蛙需要通过 Finder 读取系统废纸篓的数量和容量，并在你启用自动清理或点击清空时清理整个废纸篓。</string>
+<key>LSUIElement</key><true/>
+</dict></plist>

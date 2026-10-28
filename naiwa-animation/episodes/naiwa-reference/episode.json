@@ -1,0 +1,8 @@
+{
+  "id": "naiwa-reference",
+  "title": "奶蛙捧腹大笑：参考原图",
+  "audio": {"mode": "none"},
+  "captions": false,
+  "output": {"width": 696, "height": 564, "fps": 24, "targetSeconds": 4},
+  "render": {"filename": "naiwa-reference-696x564-24fps", "resolutionScale": 1, "colorSpace": "srgb"}
+}

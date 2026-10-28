@@ -1,0 +1,10 @@
+{
+  "browserEnvironmentKey": "CHROME_PATH",
+  "timeoutMs": 3600000,
+  "progressIntervalSeconds": 5,
+  "audioCodec": "aac",
+  "audioBitrate": "192k",
+  "fastStart": true,
+  "ffmpeg": "ffmpeg",
+  "ffprobe": "ffprobe"
+}

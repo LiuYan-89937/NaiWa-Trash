@@ -1,0 +1,19 @@
+{
+  "id": "__EPISODE_ID__",
+  "title": "",
+  "audio": {
+    "mode": "none"
+  },
+  "captions": false,
+  "output": {
+    "width": 3840,
+    "height": 2160,
+    "fps": 60,
+    "targetSeconds": 120
+  },
+  "render": {
+    "filename": "__EPISODE_ID__",
+    "resolutionScale": 1,
+    "colorSpace": "srgb"
+  }
+}

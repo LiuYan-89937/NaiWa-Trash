@@ -1,0 +1,8 @@
+{
+  "id": "naiwa",
+  "title": "奶蛙捧腹大笑",
+  "audio": {"mode": "none"},
+  "captions": false,
+  "output": {"width": 700, "height": 560, "fps": 24, "targetSeconds": 4},
+  "render": {"filename": "naiwa-laugh-700x560-24fps", "resolutionScale": 1, "colorSpace": "srgb"}
+}
